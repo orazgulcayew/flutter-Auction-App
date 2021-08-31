@@ -1,11 +1,5 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:auction/pages/detailspage.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final user = FirebaseAuth.instance.currentUser;
@@ -63,6 +57,12 @@ class Data {
     final CollectionReference bidCollection = _firestore.collection('bids');
 
     return bidCollection.where('docid', isEqualTo: docId).snapshots();
+  }
+
+  static Stream<QuerySnapshot> readTotalBids(String? docId) {
+    final CollectionReference bidCollection = _firestore.collection('bids');
+
+    return bidCollection.snapshots();
   }
 
 //showing all products
