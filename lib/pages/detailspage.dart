@@ -27,7 +27,8 @@ class _DetailsPageState extends State<DetailsPage> {
   String? bid;
 
   DateTime today = DateTime.now();
-  int winner = 0;
+  String winner = 'None';
+  String? winningbid = '0';
 
   DateTime bidtime = DateTime.now();
   bool isVisible = true;
@@ -36,6 +37,7 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     bidtime = DateTime.parse(widget.enddate);
+    List value = [];
 
     if (today.year == bidtime.year &&
         today.month == bidtime.month &&
@@ -255,9 +257,12 @@ class _DetailsPageState extends State<DetailsPage> {
                                                 String? formateddate =
                                                     DateFormat("yyyy-MM-dd")
                                                         .format(date);
-                                                List<String> value = [bids!];
-
-                                                print(value);
+                                                value.add(bids!);
+                                                if (index == 0) {
+                                                  winner = username!;
+                                                  winningbid = bids;
+                                                }
+                                                print(winner);
                                                 return Container(
                                                   child: Row(
                                                     mainAxisAlignment:
@@ -316,7 +321,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                 child: Container(
                                   width: MediaQuery.of(context).size.width * 1,
                                   child: Text(
-                                    'Winner: ',
+                                    'Winner: ' +
+                                        winner +
+                                        '( ' +
+                                        winningbid! +
+                                        ')',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 18,
